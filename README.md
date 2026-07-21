@@ -1,5 +1,9 @@
 # LifeLibrary
 
+**[🌐 Explore the LifeLibrary website](https://ziwen-xie.github.io/LifeLib/)**
+
+[![LifeLibrary — Your digital life, understood](https://ziwen-xie.github.io/LifeLib/og.png)](https://ziwen-xie.github.io/LifeLib/)
+
 LifeLibrary is a local-first intelligent desktop file explorer. It keeps the familiar folder-and-file experience while adding AI summaries, persistent categories, semantic search, document previews, recent activity, and a visual map of relationships between files.
 
 ## Why it exists
