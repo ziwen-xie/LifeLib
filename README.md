@@ -1,6 +1,6 @@
 # LifeLibrary
 
-**[🌐 Explore the LifeLibrary website](https://ziwen-xie.github.io/LifeLib/)** · **[▶ Watch the product demo](https://youtu.be/lgiA4jqLlbg)**
+**[🌐 Explore the LifeLibrary website](https://ziwen-xie.github.io/LifeLib/)** · **[▶ Watch the product demo](https://youtu.be/KFkjFy3wTcY)**
 
 [![LifeLibrary — Your digital life, understood](https://ziwen-xie.github.io/LifeLib/og.png)](https://ziwen-xie.github.io/LifeLib/)
 
@@ -66,7 +66,7 @@ npm test
 
 The test suite verifies scanning, categorization, taxonomy consolidation, and the filesystem boundary. File operations resolve and validate paths before opening, renaming, recycling, restoring, or deleting anything.
 
-## Built with Codex 5.6
+## Made with Codex 5.6
 
 **Codex 5.6 was the primary development partner for LifeLibrary.** It accelerated the project from the first product sketch through the packaged Windows build: architecture planning, Electron implementation, filesystem-safety reviews, test creation, debugging, packaging, website creation, demo production, and rapid iteration across Explorer, Dashboard, Categories, Connections, Settings, previews, search, and recycle-bin workflows.
 
