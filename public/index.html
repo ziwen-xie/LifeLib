@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>LifeLibrary</title>
+  <link rel="icon" href="../assets/lifelibrary-icon.png" />
+  <link rel="stylesheet" href="./styles.css" />
+  <link rel="stylesheet" href="./dashboard.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="titlebar">
+      <div class="brand"><img class="brand-mark" src="../assets/lifelibrary-icon.png" alt="" /><strong>LifeLibrary</strong></div>
+      <div class="pathbar"><span>⌂</span><span>My Library</span><span class="chevron">›</span><strong id="current-path">All files</strong></div>
+      <button id="refresh" class="icon-button" title="Refresh library">↻</button>
+    </header>
+
+    <section class="dashboard-view">
+      <div class="dashboard-heading"><div><p class="dashboard-eyebrow">YOUR DIGITAL LIFE, UNDERSTOOD</p><h1>Dashboard</h1></div><button id="dashboard-refresh" class="scan-button">✦ Scan & AI organize</button></div>
+      <div class="dashboard-hero"><div><p>SMART OVERVIEW</p><h2>Everything has its place.</h2><span>LifeLibrary reads, summarizes, and organizes your files while keeping you in control.</span></div><div class="hero-symbol">✦</div></div>
+      <section class="dashboard-search"><label><span>⌕</span><input id="dashboard-search" type="search" placeholder="Search what you remember—topic, phrase, project, or idea…" /></label><div id="dashboard-search-results" class="dashboard-search-results" hidden></div></section>
+      <div class="dashboard-stats"><article><i class="purple">▤</i><div><strong id="dash-files">0</strong><span>Files indexed</span></div></article><article><i class="gold">◈</i><div><strong id="dash-categories">0</strong><span>Categories found</span></div></article><article><i class="green">✓</i><div><strong>100%</strong><span>Stored locally</span></div></article></div>
+      <div class="recent-panel"><div class="recent-heading"><div><h2>Recent files</h2><p id="recent-description">Files most recently edited on disk</p></div><div class="recent-tabs" role="group" aria-label="Recent file activity"><button data-recent-mode="opened">Opened</button><button data-recent-mode="edited" class="active">Edited</button><button data-recent-mode="created">Created</button></div></div><div id="recent-files" class="recent-files"></div></div>
+    </section>
+
+    <aside class="folders-pane">
+      <nav class="side-nav" aria-label="Application views"><button class="side-nav-item active" data-view="dashboard"><span>⌂</span>Dashboard</button><button class="side-nav-item" data-view="explorer"><span>▤</span>Explorer</button><button class="side-nav-item" data-view="categories"><span>◫</span>Explore by Category</button><button class="side-nav-item" data-view="connections"><span>✦</span>Connections</button><button class="side-nav-item" data-view="recycle"><span>♲</span>Recycle Bin <em id="recycle-count"></em></button><button class="side-nav-item" data-view="settings"><span>⚙</span>Settings</button></nav>
+      <div class="folder-browser">
+      <div class="pane-label">LIBRARY</div>
+      <button class="folder-row selected" data-folder=""><span>▤</span><strong>All files</strong><em id="all-count">0</em></button>
+      <div class="pane-label folders-label">FOLDERS</div>
+      <div id="folder-tree" class="folder-tree"></div>
+      </div>
+      <div class="privacy"><span>✓</span><div><strong>Local & read-only</strong><p>Browsing your LifeLibrary folder safely</p></div></div>
+    </aside>
+
+    <main class="files-pane explorer-view">
+      <div class="files-toolbar">
+        <div class="folder-heading"><button id="back-folder" class="back-button" title="Go to parent folder">←</button><div><h1 id="folder-title">Files</h1><p id="folder-subtitle">Your organized digital library</p></div></div>
+        <div class="explorer-actions"><button id="visualize-folder" class="visualize-folder-button" title="Analyze this folder and create summary artwork">✦ AI Visuals</button><label class="search"><span>⌕</span><input id="search" type="search" placeholder="Search this library" /></label></div>
+      </div>
+      <div class="column-head"><span>Name</span><span>Category</span><span>Size</span></div>
+      <div id="file-list" class="file-list" aria-live="polite"></div>
+      <div id="empty" class="empty" hidden><span>□</span><h2>This folder is empty</h2><p>Add files to your LifeLibrary folder and refresh.</p></div>
+      <footer><span id="item-count">0 items</span><span>Read-only mode</span></footer>
+    </main>
+
+    <aside class="preview-pane explorer-view">
+      <div id="preview-empty" class="preview-empty"><span class="preview-glyph">▤</span><h2 id="folder-overview-name">Files</h2><p id="folder-overview-details">Folder overview</p></div>
+      <div id="preview-content" hidden>
+        <div class="preview-head"><span id="preview-icon" class="large-icon">TXT</span><div><h2 id="preview-name"></h2><p id="preview-meta"></p></div></div>
+        <div id="preview-body" class="preview-body"></div>
+        <section class="insight">
+          <div class="insight-title"><span>✦</span><strong>AI insight</strong></div>
+          <p id="preview-summary"></p>
+          <div class="category-line"><span id="preview-category" class="pill"></span><span id="preview-subcategory" class="subcategory-label"></span><span id="preview-confidence"></span></div>
+          <div id="preview-evidence" class="evidence"></div>
+          <button id="analyze-local" class="analyze-button">Analyze again</button>
+        </section>
+        <section class="details"><h3>File details</h3><dl><dt>Location</dt><dd id="detail-path"></dd><dt>Type</dt><dd id="detail-type"></dd><dt>Size</dt><dd id="detail-size"></dd></dl></section>
+      </div>
+    </aside>
+
+    <section class="recycle-view" hidden>
+      <div class="recycle-heading"><div><p class="dashboard-eyebrow">RECOVERABLE DELETIONS</p><h1>Recycle Bin</h1><p>Deleted items remain here until restored or permanently removed.</p></div><button id="refresh-recycle" class="icon-button" title="Refresh recycle bin">↻</button></div>
+      <div id="recycle-list" class="recycle-list"></div>
+      <div id="recycle-empty" class="recycle-empty" hidden><span>♲</span><h2>Recycle Bin is empty</h2><p>Items deleted from LifeLibrary will appear here.</p></div>
+    </section>
+
+    <section class="settings-view" hidden>
+      <div class="settings-heading"><p class="dashboard-eyebrow">LIFELIBRARY PREFERENCES</p><h1>Settings</h1><p>Choose how files are analyzed and personalize the application.</p></div>
+      <div class="settings-grid">
+        <section class="settings-card vault-card"><h2>Explorer vault</h2><p>Choose the folder LifeLibrary displays and analyzes. Files stay in their original location.</p><label class="setting-field">Vault folder<div class="vault-picker"><input id="library-path" readonly placeholder="Choose a folder"><button id="choose-library-path" type="button" class="secondary-button">Choose folder</button></div></label></section>
+        <section class="settings-card"><h2>Analysis provider</h2><p>File content is sent only to the provider selected below.</p><div class="provider-options"><label><input type="radio" name="provider" value="lmstudio" checked><span><strong>LM Studio</strong><small>Local and private</small></span></label><label><input type="radio" name="provider" value="openai"><span><strong>OpenAI API</strong><small>Cloud analysis</small></span></label></div></section>
+        <section class="settings-card provider-panel" data-provider-panel="lmstudio"><h2>LM Studio</h2><label class="setting-field">Endpoint<input id="local-endpoint" value="http://127.0.0.1:1234/v1"></label><label class="setting-field">Model<input id="local-model" value="google/gemma-4-e4b"></label><button class="secondary-button" data-test-provider="lmstudio">Test local connection</button></section>
+        <section class="settings-card provider-panel" data-provider-panel="openai" hidden><h2>OpenAI API</h2><label class="setting-field">API key<input id="openai-key" type="password" placeholder="Enter a new key to save securely"></label><p id="key-status" class="key-status">No key saved</p><label class="setting-field">Model<input id="openai-model" value="gpt-5.6-luna"></label><button class="secondary-button" data-test-provider="openai">Test OpenAI connection</button></section>
+        <section class="settings-card theme-card"><h2>Color theme</h2><p>Choose an accent palette for LifeLibrary.</p><div class="theme-options"><button data-theme-choice="purple" class="theme-choice purple active" title="Purple"></button><button data-theme-choice="ocean" class="theme-choice ocean" title="Ocean"></button><button data-theme-choice="forest" class="theme-choice forest" title="Forest"></button><button data-theme-choice="sunset" class="theme-choice sunset" title="Sunset"></button><button data-theme-choice="graphite" class="theme-choice graphite" title="Graphite"></button></div></section>
+      </div>
+      <div class="settings-footer"><span id="settings-status"></span><button id="save-settings" class="scan-button">Save settings</button></div>
+    </section>
+
+    <section class="categories-view" hidden>
+      <div class="categories-heading"><div><p class="dashboard-eyebrow">ORGANIZED COLLECTIONS</p><h1>Explore by Category</h1><p>Browse files grouped by their local or AI-assigned category.</p></div><button id="refresh-categories" class="icon-button" title="Refresh categories">↻</button></div>
+      <div class="category-controls"><div><strong>Top-level category range</strong><span>Extra distinctions automatically become subcategories.</span></div><label>Minimum<input id="category-min" type="number" min="2" max="30" value="10"></label><label>Maximum<input id="category-max" type="number" min="3" max="30" value="15"></label><button id="apply-category-range" class="scan-button">Apply & rebalance</button><em id="taxonomy-status">Target: 10–15</em></div>
+      <div id="category-shelves" class="category-shelves"></div>
+    </section>
+
+    <section class="connections-view" hidden>
+      <div class="categories-heading"><div><p class="dashboard-eyebrow">CONNECTED FILE UNIVERSE</p><h1>Connections</h1><p>Files orbit their categories; faint links reveal shared folders, names, and AI evidence.</p></div><button id="refresh-universe" class="icon-button" title="Refresh universe">↻</button></div>
+      <div class="universe-layout">
+        <aside class="category-list"><button class="category-filter active" data-category-filter="all"><span class="category-dot all"></span><strong>All categories</strong><em id="universe-total">0</em></button><div id="category-filters"></div></aside>
+        <div class="universe-main"><div class="universe-controls" aria-label="Universe zoom controls"><button id="universe-zoom-out" title="Zoom out">−</button><span id="universe-zoom-level">100%</span><button id="universe-zoom-in" title="Zoom in">+</button><button id="universe-zoom-reset" title="Fit universe">Fit</button></div><svg id="file-universe" viewBox="0 0 900 570" role="img" aria-label="Interactive map of files clustered by category. Scroll to zoom and drag to pan."></svg><div id="universe-selection" class="universe-selection"><span>Select a star to review its relationship.</span></div></div>
+      </div>
+    </section>
+  </div>
+  <div id="context-menu" class="context-menu" hidden>
+    <button data-action="open">Open</button>
+    <button data-action="reveal">Reveal in File Explorer</button>
+    <hr />
+    <button data-action="rename">Rename</button>
+    <button data-action="delete" class="danger">Delete</button>
+  </div>
+  <div id="toast" class="toast" hidden></div>
+  <dialog id="rename-dialog" class="rename-dialog">
+    <form method="dialog">
+      <h2>Rename item</h2>
+      <p>Enter a new name. The item will remain in its current folder.</p>
+      <input id="rename-input" type="text" autocomplete="off" spellcheck="false" />
+      <div class="dialog-actions"><button value="cancel">Cancel</button><button id="confirm-rename" value="default" class="primary-dialog">Rename</button></div>
+    </form>
+  </dialog>
+  <dialog id="search-dialog" class="search-dialog">
+    <div class="search-dialog-head"><div><p class="dashboard-eyebrow">SUMMARY SEARCH</p><h2 id="search-dialog-title">Search results</h2></div><button id="close-search-dialog" aria-label="Close search results">×</button></div>
+    <div class="search-dialog-layout"><div id="search-dialog-results" class="search-dialog-results"></div><aside id="search-dialog-detail" class="search-dialog-detail"><div class="search-detail-empty">Select a result to review its complete summary and file details.</div></aside></div>
+  </dialog>
+  <script type="module" src="./app.js"></script>
+</body>
+</html>

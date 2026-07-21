@@ -1,0 +1,57 @@
+{
+  "name": "life-library",
+  "version": "0.1.1",
+  "private": true,
+  "description": "A local-first intelligent file explorer that summarizes and categorizes files.",
+  "author": "Ziwen Xie",
+  "type": "module",
+  "main": "electron/main.mjs",
+  "scripts": {
+    "check:boundary": "node scripts/check-boundary.mjs",
+    "scan": "node src/cli.mjs",
+    "start": "electron .",
+    "start:web": "node src/server.mjs",
+    "test": "node --test && npm run check:boundary",
+    "dist:win": "electron-builder --win nsis"
+  },
+  "engines": {
+    "node": ">=24"
+  },
+  "devDependencies": {
+    "electron": "^43.1.1",
+    "electron-builder": "^26.0.12"
+  },
+  "dependencies": {
+    "officeparser": "^7.3.0"
+  },
+  "build": {
+    "appId": "com.lifelibrary.desktop",
+    "productName": "LifeLibrary",
+    "asar": true,
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "electron/**/*",
+      "public/**/*",
+      "src/**/*",
+      "assets/lifelibrary-icon.png",
+      "assets/lifelibrary-icon.ico",
+      "package.json"
+    ],
+    "win": {
+      "icon": "assets/lifelibrary-icon.ico",
+      "target": [
+        "nsis"
+      ],
+      "artifactName": "LifeLibrary-Setup-${version}.${ext}"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "LifeLibrary"
+    }
+  }
+}
