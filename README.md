@@ -1,6 +1,6 @@
 # LifeLibrary
 
-**[🌐 Explore the LifeLibrary website](https://ziwen-xie.github.io/LifeLib/)**
+**[🌐 Explore the LifeLibrary website](https://ziwen-xie.github.io/LifeLib/)** · **[▶ Watch the product demo](https://youtu.be/lgiA4jqLlbg)**
 
 [![LifeLibrary — Your digital life, understood](https://ziwen-xie.github.io/LifeLib/og.png)](https://ziwen-xie.github.io/LifeLib/)
 
@@ -66,9 +66,23 @@ npm test
 
 The test suite verifies scanning, categorization, taxonomy consolidation, and the filesystem boundary. File operations resolve and validate paths before opening, renaming, recycling, restoring, or deleting anything.
 
-## How Codex and GPT-5.6 contributed
+## Built with Codex 5.6
 
-Codex accelerated product design, Electron implementation, filesystem safety reviews, test creation, packaging, and rapid iteration across the Explorer, Dashboard, Categories, Connections, Settings, preview, search, and recycle-bin experiences. The OpenAI provider path supports GPT-5.6-class analysis for structured summary and taxonomy output; the default local path keeps the same product usable with LM Studio.
+**Codex 5.6 was the primary development partner for LifeLibrary.** It accelerated the project from the first product sketch through the packaged Windows build: architecture planning, Electron implementation, filesystem-safety reviews, test creation, debugging, packaging, website creation, demo production, and rapid iteration across Explorer, Dashboard, Categories, Connections, Settings, previews, search, and recycle-bin workflows.
+
+### Key product, engineering, and design decisions
+
+- **Build a real Explorer, not an AI scan report.** We kept direct folder navigation, single-click details, double-click open, native context actions, and the Dashboard as a separate left-side tab.
+- **Make privacy a user choice.** We designed one structured analysis interface that works with local models through LM Studio or an optional OpenAI-compatible provider.
+- **Preserve understanding across rescans.** AI summaries and taxonomy records are validated and persisted instead of allowing previously analyzed files to fall back to `Uncategorized`.
+- **Control taxonomy complexity.** Users can choose a target number of top-level categories while LifeLibrary preserves narrower meaning as subcategories.
+- **Expose relationships visually.** Connections became a dedicated zoomable file-universe view rather than another list or filter.
+- **Keep filesystem actions bounded and recoverable.** IPC is context-isolated, paths are validated against the selected vault, and deletion uses a recycle-and-restore workflow.
+- **Use honest visuals.** Images keep their real thumbnails, while non-image documents can receive document-specific visual summaries.
+
+Codex 5.6 helped turn each decision into working code, tests, and packaging iterations; the product direction and final tradeoffs were selected through hands-on review of the running app.
+
+The OpenAI-compatible provider path supports structured summary and taxonomy output; the default local path keeps the same product usable with LM Studio.
 
 ## Roadmap
 
